@@ -5,11 +5,11 @@ one:
   name: MyString
   album: MyString
   band: MyString
-  cover_art_url: MyString
+  coverart_url: MyString
 
 two:
   remote_id: MyString
   name: MyString
   album: MyString
   band: MyString
-  cover_art_url: MyString
+  coverart_url: MyString

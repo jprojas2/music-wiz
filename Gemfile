@@ -28,6 +28,10 @@ gem 'rack-cors'
 
 gem 'webpacker'
 
+gem 'ruby-string-match-scorer', :path => 'vendor/string_scorer'
+
+gem 'fuzzy_match'
+
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 # gem 'rack-cors'
 

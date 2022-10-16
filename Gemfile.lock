@@ -1,3 +1,8 @@
+PATH
+  remote: vendor/string_scorer
+  specs:
+    ruby-string-match-scorer (0.1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -91,6 +96,7 @@ GEM
     faraday-rack (1.0.0)
     faraday-retry (1.0.3)
     ffi (1.15.5)
+    fuzzy_match (2.1.0)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -185,10 +191,12 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   faraday
+  fuzzy_match
   listen (~> 3.3)
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.6, >= 6.1.6.1)
+  ruby-string-match-scorer!
   spring
   sqlite3 (~> 1.4)
   tzinfo-data

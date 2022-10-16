@@ -12,7 +12,7 @@ module Api
 
       # GET /playlists/1
       def show
-        render json: @playlist
+        render json: @playlist.as_json.merge({"songs": @playlist.songs.map{|e| e.as_json}})
       end
 
       # POST /playlists
@@ -29,7 +29,7 @@ module Api
       # PATCH/PUT /playlists/1
       def update
         if @playlist.update(playlist_params)
-          render json: @playlist
+          render json: @playlist.as_json.merge({"songs": @playlist.songs.map{|e| e.as_json}})
         else
           render json: @playlist.errors, status: :unprocessable_entity
         end
@@ -48,7 +48,8 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def playlist_params
-          params.require(:playlist).permit(:name, :description)
+          params.require(:playlist).permit(:id, :name, :description, songs_attributes: [:id, :name, :band, :remote_id,  :duration,
+            :coverart_url, :thumbnail_url, :album, :position, :_destroy])
         end
     end
 

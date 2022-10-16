@@ -8,6 +8,18 @@ class Discogs
         @secret = "nMUYqlcnnxmgeTUKsrHjmpylAJHyVVYP"
     end
 
+    def search_song song, page: nil, per_page: nil
+        request(http_method: :get, endpoint:
+          paginate_endpoint("/database/search?q=#{song}", 2, 150))
+    end
+
+    def search term, type: nil, page: nil, per_page: nil
+        endpoint = "/database/search?q=#{term}"
+        endpoint += "&type=#{type}" if type
+        request(http_method: :get, endpoint:
+            paginate_endpoint(endpoint, page, per_page))
+    end
+
     def search_artist artist, page: nil, per_page: nil
         request(http_method: :get, endpoint:
           paginate_endpoint("/database/search?q=#{artist}&type=artist", page, per_page))
@@ -19,11 +31,12 @@ class Discogs
     end
 
     def get_album album_id
-        request(http_method: :get, endpoint: "/releases/#{album_id}")
+        request(http_method: :get, endpoint: "/masters/#{album_id}")
     end
 
     def paginate_endpoint endpoint, page, per_page
-        if page && per_page
+        if per_page
+            page ||= 1
             endpoint += "?" unless endpoint.include? "?"
             endpoint += "&page=#{page}&per_page=#{per_page}"
         end
@@ -60,10 +73,10 @@ class Discogs
         if @response.status.in? [200, 201]
             JSON.parse(@response.body) if @response.status != 204
         elsif @response.status == 404
-            raise error_class, "Código #{@response.status}: caso no encontrado"
+            raise "Código #{@response.status}: no encontrado"
         elsif @response.status == 422
-            raise error_class, "Código #{@response.status}: #{JSON.parse(@response.body) }"
-        elsif @response.satus == 429 && attempt <= 10
+            raise "Código #{@response.status}: #{JSON.parse(@response.body) }"
+        elsif @response.status == 429 && attempt <= 10
             request(http_method: http_method, endpoint: endpoint, params: params, attempt: attempt + 1)
         else
             puts "\nResponse status code: #{@response.status}"
@@ -74,7 +87,7 @@ class Discogs
             end
             puts "\nResponse body\n"
             puts @response.body
-            raise error_class, "Código #{@response.status}"
+            raise "Código #{@response.status}"
         end
     end
 end

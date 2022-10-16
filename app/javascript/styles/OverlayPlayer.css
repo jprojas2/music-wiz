@@ -1,0 +1,44 @@
+.overlayPlayer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    padding-right: 2rem;
+    border-bottom: 1px solid #ccc;
+    width: 100vw;
+    height: 100vh;
+    background: transparent;
+}
+
+.overlayPlayer__label {
+    flex: 1;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 16vh;
+}
+
+.overlayPlayer__title {
+    line-height: 1.5;
+}
+
+.overlayPlayer__band {
+    font-size: 0.8em;
+}
+
+.overlayPlayer__album {
+    font-size: 0.8em;
+}
+
+.overlayPlayer__image {
+    height: calc(100vh - 50px);
+    aspect-ratio: 1/1;
+    border: 1px solid #ccc;
+}
+
+.overlayPlayer__image img {
+    width: 100%;
+    height: 100%;
+}

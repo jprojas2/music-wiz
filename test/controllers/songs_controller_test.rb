@@ -12,7 +12,7 @@ class SongsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create song" do
     assert_difference('Song.count') do
-      post songs_url, params: { song: { album: @song.album, band: @song.band, cover_art_url: @song.cover_art_url, name: @song.name, remote_id: @song.remote_id } }, as: :json
+      post songs_url, params: { song: { album: @song.album, band: @song.band, coverart_url: @song.coverart_url, name: @song.name, remote_id: @song.remote_id } }, as: :json
     end
 
     assert_response 201
@@ -24,7 +24,7 @@ class SongsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update song" do
-    patch song_url(@song), params: { song: { album: @song.album, band: @song.band, cover_art_url: @song.cover_art_url, name: @song.name, remote_id: @song.remote_id } }, as: :json
+    patch song_url(@song), params: { song: { album: @song.album, band: @song.band, coverart_url: @song.coverart_url, name: @song.name, remote_id: @song.remote_id } }, as: :json
     assert_response 200
   end
 

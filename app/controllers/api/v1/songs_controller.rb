@@ -1,7 +1,8 @@
 module Api
   module V1
     class SongsController < ApplicationController
-      before_action :set_song, only: [:show, :update, :destroy]
+      before_action :set_playlist, except: [:playing]
+      before_action :set_song, only: [:play, :pause, :show, :update, :destroy]
 
       # GET /songs
       def index
@@ -17,7 +18,7 @@ module Api
 
       # POST /songs
       def create
-        @song = Song.new(song_params)
+        @song = @playlist.songs.create(song_params)
 
         if @song.save
           render json: @song, status: :created, location: @song
@@ -40,15 +41,39 @@ module Api
         @song.destroy
       end
 
+      def playing
+        @song = Song.find_by(playing: true)
+        render json: @song
+      end
+
+      def play
+        @song.assign_attributes(playing: true)
+        if @song.valid? && Song.update_all(playing: false)
+          @song.update(playing: true)
+          render json: @song
+        else
+          render json: @song.errors, status: :unprocessable_entity
+        end
+      end
+
+      def pause
+        Song.update_all(playing: false)
+        render json: @song
+      end
+
       private
+
+        def set_playlist
+          @playlist = Playlist.find(params[:playlist_id])
+        end
         # Use callbacks to share common setup or constraints between actions.
         def set_song
-          @song = Song.find(params[:id])
+          @song = @playlist.songs.find(params[:id])
         end
 
         # Only allow a list of trusted parameters through.
         def song_params
-          params.require(:song).permit(:remote_id, :name, :album, :band, :cover_art_url)
+          params.require(:song).permit(:remote_id, :name, :album, :band, :coverart_url)
         end
     end
   end

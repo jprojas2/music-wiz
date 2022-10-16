@@ -1,0 +1,17 @@
+.playlistItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    padding-right: 2rem;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
+.playlistItem__label {
+    flex: 1;
+    font-size: 1.2rem;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+}
