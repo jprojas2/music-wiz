@@ -81,4 +81,12 @@
     height: unset;
     min-height: calc((100vh - 64px) - 70px - 150px);
   }
+
+  .ant-layout-sider .toggle {
+    display: none;
+  }
+
+  .ant-layout-sider {
+    transform: translateX(0);
+  }
 }
