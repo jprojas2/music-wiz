@@ -18,19 +18,7 @@ const secondsToHour = (seconds) => {
 }
 
 export default (props) => {
-    const [song, setSong] = React.useState(null);
-
-    useEffect(() => {
-        if(song === null) {
-            songsService.getPlaying().then((response) => response.json())
-          .then((data) => {
-            setSong(data);
-          }).catch((error) => {
-            setSong(false);
-          });
-        }
-      }, [song])
-
+    const song = props.song;
     if(song) {
         return  <div id="songPlayer" className={"songPlayer " + (song ? "songPlayer_open" : "")}>
             <div className="songPlayer__image">

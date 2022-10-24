@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   root 'react#index'
   get '/', to: 'react#index'
   get '/*path', to: 'react#index'
+  mount ActionCable.server => '/cable'
 end

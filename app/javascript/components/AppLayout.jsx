@@ -5,6 +5,8 @@ import SongPlayer from './SongPlayer';
 import {
   Link, Outlet,
 } from 'react-router-dom';
+import ActionCable from 'actioncable';
+import { useEffect } from 'react';
 
 const { Header, Content, Footer, Sider } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
@@ -41,8 +43,30 @@ const items = [
   getItem('Browse', '2', <UserOutlined />),
 ]
 
-const AppLayout = () => (
-  <Layout  style={{
+const AppLayout = () => {
+  const [song, setSong] = React.useState(false);
+  const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+  useEffect(() => {
+    cable.subscriptions.create({channel: 'PlayerChannel'}, {
+      received: (data) => {
+        console.log("song changed")
+        setSong(JSON.parse(data.message));
+      }
+    });
+  }, [false])
+
+  useEffect(() => {
+    if(song === null) {
+        songsService.getPlaying().then((response) => response.json())
+      .then((data) => {
+        setSong(data);
+      }).catch((error) => {
+        setSong(false);
+      });
+    }
+  }, [false])
+
+  return (<Layout  style={{
     height: '100vh',
     overflow: 'hidden',
     position: 'relative',
@@ -103,8 +127,9 @@ const AppLayout = () => (
       Ant Design ©2018 Created by Ant UED
     </Footer>
 */}
-    <SongPlayer></SongPlayer>
+    <SongPlayer song={song}></SongPlayer>
   </Layout>
-);
+)
+}
 
 export default AppLayout;

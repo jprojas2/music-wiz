@@ -49,6 +49,7 @@ module Api
       def play
         @song.assign_attributes(playing: true)
         if @song.valid? && Song.update_all(playing: false)
+          ActionCable.server.broadcast 'player_channel', message: @song.to_json
           @song.update(playing: true)
           render json: @song
         else
@@ -57,6 +58,7 @@ module Api
       end
 
       def pause
+        ActionCable.server.broadcast 'player_channel', message: 'song paused'
         Song.update_all(playing: false)
         render json: @song
       end
