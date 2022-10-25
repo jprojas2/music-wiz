@@ -20,7 +20,7 @@ var PlaylistsList = () => {
 
   useEffect(() => {
     if(items === null) {
-      fetch("http://localhost:3000/api/v1/playlists")
+      fetch("/api/v1/playlists")
         .then((response) => response.json())
         .then((data) => {
           setItems(data);

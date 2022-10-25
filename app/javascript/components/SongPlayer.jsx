@@ -20,7 +20,7 @@ const secondsToHour = (seconds) => {
 export default (props) => {
     const song = props.song;
     if(song) {
-        return  <div id="songPlayer" className={"songPlayer " + (song ? "songPlayer_open" : "")}>
+        return  <div id="songPlayer" className={"songPlayer songPlayer_open"}>
             <div className="songPlayer__image">
                 <img src={song.thumbnail_url} alt=""/>
             </div>
@@ -44,7 +44,7 @@ export default (props) => {
             )}
         </div>
     } else {
-        return <div id="songPlayer" className={"songPlayer " + (song ? "songPlayer_open" : "")}>
+        return <div id="songPlayer" className={"songPlayer"}>
         <div className="songPlayer__image">
             <img alt=""/>
         </div>

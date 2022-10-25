@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import ActionCable from 'actioncable';
 import { useEffect } from 'react';
+import songsService from "../services/songs";
 
 const { Header, Content, Footer, Sider } = Layout;
 const items1 = ['1', '2', '3'].map((key) => ({
@@ -44,8 +45,8 @@ const items = [
 ]
 
 const AppLayout = () => {
-  const [song, setSong] = React.useState(false);
-  const cable = ActionCable.createConsumer('ws://localhost:3000/cable');
+  const [song, setSong] = React.useState(null);
+  const cable = ActionCable.createConsumer('/cable');
   useEffect(() => {
     cable.subscriptions.create({channel: 'PlayerChannel'}, {
       received: (data) => {
@@ -64,10 +65,10 @@ const AppLayout = () => {
         setSong(false);
       });
     }
-  }, [false])
+  }, [song])
 
   return (<Layout  style={{
-    height: '100vh',
+    height: '100%',
     overflow: 'hidden',
     position: 'relative',
   }}>

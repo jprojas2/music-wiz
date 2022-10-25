@@ -1,11 +1,11 @@
 
 class playlistsService {
     get(id) {
-        return fetch("http://localhost:3000/api/v1/playlists/" + id)
+        return fetch("/api/v1/playlists/" + id)
     }
 
     create(playlist) {
-        return fetch("http://localhost:3000/api/v1/playlists", {
+        return fetch("/api/v1/playlists", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -15,7 +15,7 @@ class playlistsService {
     }
 
     update(id, playlist) {
-        return fetch("http://localhost:3000/api/v1/playlists/" + playlist.id, {
+        return fetch("/api/v1/playlists/" + playlist.id, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -25,7 +25,7 @@ class playlistsService {
     }
 
     destroy(id) {
-        return fetch("http://localhost:3000/api/v1/playlists/" + id, {
+        return fetch("/api/v1/playlists/" + id, {
             method: "DELETE"
         })
     }

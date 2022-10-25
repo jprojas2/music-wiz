@@ -278,7 +278,7 @@ export default () => {
           clearTimeout(currentTimeout);
         }
         currentTimeout = setTimeout(() => {
-          fetch("http://localhost:3000/api/v1/search/track?q=" + value)
+          fetch("/api/v1/search/track?q=" + value)
           .then((response) => response.json())
           .then((data) => {
             setOptions(data ? searchResult(value, data) : []);
