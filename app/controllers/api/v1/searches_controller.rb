@@ -1,4 +1,3 @@
-require "string_scorer"
 module Api
     module V1
         class SearchesController < ApplicationController
