@@ -1,8 +1,3 @@
-PATH
-  remote: vendor/string_scorer
-  specs:
-    ruby-string-match-scorer (0.1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -196,7 +191,6 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 6.1.6, >= 6.1.6.1)
-  ruby-string-match-scorer!
   spring
   sqlite3 (~> 1.4)
   tzinfo-data
